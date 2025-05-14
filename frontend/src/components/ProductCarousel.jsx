@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 import { Carousel, Image } from "react-bootstrap";
 import Message from "./Message";
-import { useGetAllProductsQuery } from "../slices/productApiSlice";
+import { useGetProductsQuery } from "../slices/productApiSlice";
 
 const ProductCarousel = () => {
-  const { data, error } = useGetAllProductsQuery();
+  const { data, error } = useGetProductsQuery();
 
   return error ? (
-    <Message variant="danger">{error}</Message>
+    <Message variant="danger">
+      {error?.data?.message ||
+        error?.message ||
+        error?.error ||
+        "An error occurred"}
+    </Message>
   ) : (
     <Carousel pause="hover" className="custom-carousel bg-primary mb-4">
       {data?.products.map((product) => (

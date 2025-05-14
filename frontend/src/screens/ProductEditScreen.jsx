@@ -89,7 +89,12 @@ const ProductEditScreen = () => {
       <FormContainer>
         <h1>Edit Product</h1>
         {error ? (
-          <Message variant="danger">{error}</Message>
+          <Message variant="danger">
+            {error?.data?.message ||
+              error?.message ||
+              error?.error ||
+              "An error occurred"}
+          </Message>
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name" className="my-2">

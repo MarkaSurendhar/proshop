@@ -9,7 +9,6 @@ import {
   Button,
 } from "react-bootstrap";
 import Rating from "../components/Rating";
-import Meta from "../components/Meta";
 import {
   useGetProductDetailsQuery,
   useCreateReviewMutation,
@@ -35,7 +34,7 @@ const ProductScreen = () => {
   const {
     data: product,
     isLoading,
-    isError,
+    error,
     refetch,
   } = useGetProductDetailsQuery(productId);
 
@@ -69,13 +68,12 @@ const ProductScreen = () => {
       </Link>
       {isLoading ? (
         <Loader />
-      ) : isError ? (
+      ) : error ? (
         <Message variant="danger">
-          {isError?.data?.message || isError?.error}
+          {error?.data?.message || error?.error || "Something went wrong"}
         </Message>
       ) : (
         <>
-          <Meta title={product.name} />
           <Row>
             <Col md={5}>
               <Image src={product?.image} alt={product?.name} fluid />
