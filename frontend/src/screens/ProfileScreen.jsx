@@ -2,10 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Table, Form, Button, Row, Col, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
 import { toast } from "react-toastify";
 import Message from "../components/Message";
-import Loader from "../components/Loader";
 import { useProfileMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { useGetMyOrdersQuery } from "../slices/orderAPiSlice";
@@ -21,10 +19,9 @@ const ProfileScreen = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  const [updateProfile, { isLoading: loadingUpdateProfile }] =
-    useProfileMutation();
+  const [updateProfile] = useProfileMutation();
 
-  const { data: orders, isLoading, error } = useGetMyOrdersQuery();
+  const { data: orders, error } = useGetMyOrdersQuery();
 
   console.log(orders);
 
